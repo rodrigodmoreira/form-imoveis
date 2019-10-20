@@ -1,5 +1,5 @@
 const controllers = require('./controllers')
 
 module.exports = app => {
-  app.get('/addresses')
+  app.get('/addresses', controllers.listAdresses)
 }

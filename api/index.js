@@ -5,6 +5,6 @@ module.exports = app => {
   directories = directories.filter(item => !item.match(/.*\..*/))
 
   directories.forEach(dir => {
-    require(`api/${dir}/routes`)(app)
+    require(`./${dir}/routes`)(app)
   })
 }
