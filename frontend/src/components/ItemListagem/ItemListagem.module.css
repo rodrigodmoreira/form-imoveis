@@ -1,0 +1,17 @@
+.container {
+    width: 250px;
+    height: 200px;
+    margin: 10px;
+    box-sizing: border-box;
+    vertical-align: middle;
+    float: left;
+    border: 1px solid #f7f7f7;
+}
+
+.header {
+
+}
+
+.footer {
+    
+}
