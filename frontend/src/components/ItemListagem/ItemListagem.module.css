@@ -2,7 +2,7 @@
     font-family: Roboto, sans-serif;
 }
 .container {
-    
+    border-radius: 10px;
     width: 250px;
     height: 200px;
     padding: 20px;
@@ -41,6 +41,22 @@
     font-size: .875rem;
     font-weight: 500;
     margin: 2px;
+}
+
+.informacoes {
+    margin: 10px;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.info-detalhe {
+    margin-right: 30px;
+    display: flex;
+}
+
+.icones {
+    color: grey;
+    margin-right: 5px;
 }
 
 .footer {
