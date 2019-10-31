@@ -62,32 +62,3 @@ CREATE TABLE property_extras (
 
   PRIMARY KEY (id)
 );
-
--- INSERTIONS
-INSERT INTO address_districts VALUES
-  (1, 'Ouro Preto'),
-  (2, 'Bandeirantes'),
-  (3, 'Santo Antonio'),
-  (4, 'Gameleira')
-;
-
-
-INSERT INTO addresses VALUES
-  (1, 1, 100, 'Rua Logo Ali'),
-  (2, 2, 200, 'Rua Logo Aqui'),
-  (3, 3, 300, 'Rua Logo Lá'),
-  (4, 4, 500, 'Rua Logo Depois')
-;
-
-
-INSERT INTO property_types VALUES
-  (1, 'Casa'),
-  (2, 'Apartamento')
-;
-
-INSERT INTO properties VALUES
-  (1, 1, 1, 3, 2, 2, 2, 11.5, TRUE, 'Uma descricao qualquer 1', 1000.99),
-  (2, 1, 2, 3, 2, 2, 2, 12.5, TRUE, 'Uma descricao qualquer 2', 2000.99),
-  (3, 2, 3, 3, 2, 2, 2, 13.5, TRUE, 'Uma descricao qualquer 3', 3000.99),
-  (4, 2, 4, 3, 2, 2, 2, 14.5, TRUE, 'Uma descricao qualquer 4', 4000.99)
-;
