@@ -17,7 +17,7 @@ CREATE TABLE address_districts (
 
 CREATE TABLE addresses (
   id SERIAL,
-  district_id INTEGER REFERENCES address_districts(id) NOT NULL,
+  district_id INTEGER REFERENCES address_districts(id) ON DELETE CASCADE NOT NULL,
   
   number INTEGER,
   street VARCHAR(50),
@@ -53,7 +53,7 @@ CREATE TABLE properties (
 
 CREATE TABLE property_extras (
   id SERIAL,
-  propety_id INTEGER REFERENCES properties(id) NOT NULL,
+  property_id INTEGER REFERENCES properties(id) ON DELETE CASCADE NOT NULL,
 
   qt_dnrooms INTEGER,
   floor INTEGER,

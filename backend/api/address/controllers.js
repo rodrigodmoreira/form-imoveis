@@ -1,7 +1,7 @@
 const { Address, AddressDistrict } = require('database')
 
 module.exports = {
-  listAdresses: async (req, res) => {
+  listAddresses: async (req, res) => {
     const list = await Address.findAllWithDistricts()
     res.send(list)
   },

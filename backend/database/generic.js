@@ -16,6 +16,22 @@ module.exports = (tableName, columns, pool) => ({
     return pool.query(query, objToArr(attrs)).then(({ rows }) => rows[0] || null)
   },
 
+  update: (id, attrs) => {
+    attrs = internals.extractAllowedColumns(attrs, columns)
+    const updateMoreThanOneCol = Object.keys(attrs).length > 1
+    const query = `
+      UPDATE ${tableName} SET ${updateMoreThanOneCol ? '(' : ''}${internals.columnsToString(attrs)}${updateMoreThanOneCol ? ')' : ''} = (${internals.getWildcards(attrs, 2)})
+      WHERE id = $1::integer
+      RETURNING *
+    `
+
+    return pool.query(query, [id, ...objToArr(attrs)]).then(({ rows }) => rows[0] || null)
+  },
+
+  delete: (id) => {
+    return pool.query(`DELETE FROM ${tableName} WHERE id = $1::integer RETURNING *`, [id]).then(({ rows }) => rows[0] || null)
+  },
+
   findByPk: (id) => pool.query(`SELECT * FROM ${tableName} WHERE id = $2::integer`, [id]).then(({ rows }) => rows[0] || null),
   findAll: () => pool.query(`SELECT * FROM ${tableName}`).then(({ rows }) => rows)
 })
@@ -39,12 +55,12 @@ const internals = {
     return list
   },
 
-  getWildcards: (attrs) => {
+  getWildcards: (attrs, initial = 1) => {
     let list = ''
     const keys = Object.keys(attrs)
     keys.forEach((col, index) => {
       if (col === 'id') return
-      list = `${list}$${index + 1}${index === keys.length - 1 ? '' : ', '}`
+      list = `${list}$${index + initial}${index === keys.length - 1 ? '' : ', '}`
     })
     return list
   }
