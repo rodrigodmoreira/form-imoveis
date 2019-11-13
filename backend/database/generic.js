@@ -32,15 +32,15 @@ module.exports = (tableName, columns, pool) => ({
     return pool.query(`DELETE FROM ${tableName} WHERE id = $1::integer RETURNING *`, [id]).then(({ rows }) => rows[0] || null)
   },
 
-  findByPk: (id) => pool.query(`SELECT * FROM ${tableName} WHERE id = $2::integer`, [id]).then(({ rows }) => rows[0] || null),
-  findAll: () => pool.query(`SELECT * FROM ${tableName}`).then(({ rows }) => rows)
+  findAll: () => pool.query(`SELECT * FROM ${tableName}`).then(({ rows }) => rows),
+  findByPk: (id) => pool.query(`SELECT * FROM ${tableName} WHERE id = $1::integer`, [id]).then(({ rows }) => rows[0] || null)
 })
 
 const internals = {
   extractAllowedColumns: (attrs, columns) => {
     const allowedAttrs = {}
     columns.forEach(col => {
-      if (!isNil(attrs[col])) allowedAttrs[col] = attrs[col]
+      if (!isNil(attrs[col]) && col !== 'id') allowedAttrs[col] = attrs[col]
     })
     return allowedAttrs
   },
@@ -49,7 +49,6 @@ const internals = {
     let list = ''
     const keys = Object.keys(attrs)
     keys.forEach((col, index) => {
-      if (col === 'id') return
       list = `${list}${col}${index === keys.length - 1 ? '' : ', '}`
     })
     return list
@@ -59,7 +58,6 @@ const internals = {
     let list = ''
     const keys = Object.keys(attrs)
     keys.forEach((col, index) => {
-      if (col === 'id') return
       list = `${list}$${index + initial}${index === keys.length - 1 ? '' : ', '}`
     })
     return list

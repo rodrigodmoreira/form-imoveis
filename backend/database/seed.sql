@@ -32,5 +32,5 @@ VALUES
 INSERT INTO property_extras (property_id, qt_dnrooms, floor, condo_value, lobby_24h)
 VALUES
   (3, 3, 10, 1000.50, TRUE),
-  (3, 4, 11, 2000.55, FALSE)
+  (4, 4, 11, 2000.55, FALSE)
 ;

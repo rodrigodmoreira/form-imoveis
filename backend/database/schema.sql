@@ -53,7 +53,7 @@ CREATE TABLE properties (
 
 CREATE TABLE property_extras (
   id SERIAL,
-  property_id INTEGER REFERENCES properties(id) ON DELETE CASCADE NOT NULL,
+  property_id INTEGER REFERENCES properties(id) ON DELETE CASCADE NOT NULL UNIQUE,
 
   qt_dnrooms INTEGER,
   floor INTEGER,

@@ -17,4 +17,20 @@ files.forEach(fileName => {
   db[formattedName] = require(`./models/${fileName}`)(pool)
 })
 
+db.Transaction = async callback => {
+  const client = await pool.connect()
+  try {
+    await client.query('BEGIN')
+    try {
+      await callback(client)
+      await client.query('COMMIT')
+    } catch (e) {
+      await client.query('ROLLBACK')
+      throw e
+    }
+  } finally {
+    client.release()
+  }
+}
+
 module.exports = db
