@@ -1,4 +1,5 @@
 import React from 'react';
+import Axios from 'axios';
 
 import ItemListagem from './components/ItemListagem';
 import ItemAdicionar from './components/ItemAdicionar';
@@ -11,6 +12,9 @@ class App extends React.Component {
   }
 
   render(){
+    Axios.get("http://api.github.com/users/techtuxbr").then((response) => {
+      console.log(response.data);
+    })
     return (
       <div className="App">
         <header className="App-header">
