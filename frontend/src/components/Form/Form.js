@@ -50,6 +50,9 @@ class Form extends React.Component{
             case ConstantesForm.Campos.condominio:
                 this.setState({ condominio: value});
                 break;
+            case ConstantesForm.Campos.dropdownType:
+                this.setState({ tipoImovel: value});
+                break;
             default:
                 break;
         }
@@ -59,11 +62,6 @@ class Form extends React.Component{
         const { acao, checkIn, checkOut } = this.state;
         acao(checkIn, checkOut);
         event.preventDefault();
-    }
-
-    handleChangeDropDown = (event) => {
-        console.log(event.target.value);
-        this.setState({tipoImovel: event.target.value})
     }
 
     render(){
@@ -76,7 +74,7 @@ class Form extends React.Component{
                     <form onSubmit={this.handleSubmit}>
                         <label>
                             <div className={styles["check"]}>Tipo do Imóvel:</div>
-                            <select id = "myList" onChange={this.handleChangeDropDown}>
+                            <select id = "myList" name={ConstantesForm.Campos.dropdownType} onChange={this.handleChange}>
                                 <option value = {ConstantesImoveis.Tipos.Apartamento}>Apartamento</option>
                                 <option value = {ConstantesImoveis.Tipos.Casa}>Casa</option>
                             </select>
