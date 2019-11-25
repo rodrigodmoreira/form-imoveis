@@ -9,6 +9,8 @@ const Form = {
         vagas: "vagas",
         andar: "andar",
         condominio: "condominio",
+        armario: "armario",
+        porteiro: "porteiro"
     }
 }
 

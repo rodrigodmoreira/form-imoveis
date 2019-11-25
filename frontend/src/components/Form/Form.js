@@ -11,14 +11,16 @@ class Form extends React.Component{
         this.state = {
             acao: props.acao,
             tipoImovel: ConstantesImoveis.Tipos.Apartamento,
-            quartos: null,
-            suites: null,
-            estar: null,
-            jantar: null,
-            area: null,
-            vagas: null,
-            andar: null,
-            condominio: null,
+            quartos: "",
+            suites: "",
+            estar: "",
+            jantar: "",
+            area: "",
+            vagas: "",
+            andar: "",
+            condominio: "",
+            armario: false,
+            porteiro: false,
         };
     }
 
@@ -53,19 +55,25 @@ class Form extends React.Component{
             case ConstantesForm.Campos.dropdownType:
                 this.setState({ tipoImovel: value});
                 break;
+            case ConstantesForm.Campos.armario:
+                this.setState({ armario: event.target.checked});
+                break;
+            case ConstantesForm.Campos.porteiro:
+                this.setState({ porteiro: event.target.checked});
+                break;
             default:
                 break;
         }
     }
     
     handleSubmit = (event) => {
-        const { acao, checkIn, checkOut } = this.state;
-        acao(checkIn, checkOut);
+        const { acao, tipoImovel, quartos, suites, estar, jantar, area, vagas, andar, condominio } = this.state;
+        acao(tipoImovel, quartos, suites, estar, jantar, area, vagas, andar, condominio);
         event.preventDefault();
     }
 
     render(){
-        const { tipoImovel, quartos, suites, estar, jantar, area, vagas, andar, condominio } = this.state;
+        const { tipoImovel, quartos, suites, estar, jantar, area, vagas, andar, condominio, armario, porteiro } = this.state;
      
         return(
             <div className={styles["container"]}>
@@ -74,7 +82,7 @@ class Form extends React.Component{
                     <form onSubmit={this.handleSubmit}>
                         <label>
                             <div className={styles["check"]}>Tipo do Imóvel:</div>
-                            <select id = "myList" name={ConstantesForm.Campos.dropdownType} onChange={this.handleChange}>
+                            <select id = "dropdownType" name={ConstantesForm.Campos.dropdownType} onChange={this.handleChange}>
                                 <option value = {ConstantesImoveis.Tipos.Apartamento}>Apartamento</option>
                                 <option value = {ConstantesImoveis.Tipos.Casa}>Casa</option>
                             </select>
@@ -112,7 +120,16 @@ class Form extends React.Component{
                             <span className={styles["check"]}>Valor do Condomínio:</span>
                             <input type="number" name={ConstantesForm.Campos.condominio} placeholder="Condominio R$" value={ condominio } onChange={this.handleChange} />
                         </label>}
-                        <input type="checkbox" name="vehicle" value="Bike" /> I have a bike
+                        <label>
+                            <div className={styles["checkBox"]}>
+                                <input type="checkbox" name={ConstantesForm.Campos.armario} value={ConstantesForm.Campos.armario} checked={armario} onChange={this.handleChange} /> Tem armário embutido
+                            </div>
+                        </label>
+                        {tipoImovel === ConstantesImoveis.Tipos.Apartamento && <label>
+                            <div className={styles["checkBox"]}>
+                                <input type="checkbox" name={ConstantesForm.Campos.porteiro} value={ConstantesForm.Campos.porteiro} checked={porteiro} onChange={this.handleChange} /> Tem porteiro 24h
+                            </div>
+                        </label>}
                         <input className={styles["button"]} type="submit" value="Ver Quartos" />
                     </form>
                 </div>
