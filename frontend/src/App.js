@@ -12,7 +12,7 @@ class App extends React.Component {
   }
 
   render(){
-    Axios.get("http://api.github.com/users/techtuxbr").then((response) => {
+    Axios.get("http://localhost:3676/properties").then((response) => {
       console.log(response.data);
     })
     return (
@@ -63,7 +63,7 @@ class App extends React.Component {
           /> 
           <ItemAdicionar acao={() => this.onClickPlus}/>
 
-          {this.state.formAberto && <Form acao={() => this.onClickClose}/>}
+          {this.state.formAberto && <Form acao={(tipoImovel, quartos, suites, estar, jantar, area, vagas, andar, condominio) => this.onClickClose(tipoImovel, quartos, suites, estar, jantar, area, vagas, andar, condominio)}/>}
 
           
         </header>
@@ -78,8 +78,8 @@ class App extends React.Component {
     })
   }
 
-  onClickClose = () => {
-
+  onClickClose = (tipoImovel, quartos, suites, estar, jantar, area, vagas, andar, condominio) => {
+    debugger;
     this.setState({
       formAberto: false
     })
