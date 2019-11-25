@@ -5,4 +5,4 @@ const Imoveis = {
     }
 }
 
-export default Imoveis;
+export default Imoveis

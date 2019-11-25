@@ -28,7 +28,7 @@ CREATE TABLE addresses (
 CREATE TABLE property_types (
   id SERIAL,
 
-  type VARCHAR(50),
+  name VARCHAR(50),
 
   PRIMARY KEY (id)
 );

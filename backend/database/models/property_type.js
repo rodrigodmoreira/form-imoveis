@@ -1,12 +1,12 @@
 const generic = require('../generic')
 
-const Property = pool => {
+const PropertyType = pool => {
   const columns = [
-    'id', 'type'
+    'id', 'name'
   ]
   const model = generic('property_types', columns, pool)
 
   return model
 }
 
-module.exports = Property
+module.exports = PropertyType

@@ -1,4 +1,4 @@
-const { Property, PropertyExtras, Address, Transaction } = require('database')
+const { Property, PropertyExtras, Address, PropertyType, Transaction } = require('database')
 const { isNil } = require('utils')
 
 module.exports = {
@@ -71,6 +71,12 @@ module.exports = {
 
 const internals = {
   setRelations: async (property) => {
+    const type = await PropertyType.findOne(property.type_id)
+    if (!isNil(type)) {
+      delete property.type_id
+      property.type = type
+    }
+
     const propertyExtras = await PropertyExtras.findByProperty(property.id)
     if (!isNil(propertyExtras)) {
       delete propertyExtras.property_id

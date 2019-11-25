@@ -1,13 +1,13 @@
-import React from 'react';
+import React from 'react'
 
-import ConstantesForm from '../../common/constants/Form';
-import ConstantesImoveis from '../../common/constants/Imoveis';
+import ConstantesForm from '../../common/constants/Form'
+import ConstantesImoveis from '../../common/constants/Imoveis'
 
-import styles from './Form.module.css';
+import styles from './Form.module.css'
 
 class Form extends React.Component{
     constructor(props) {
-        super(props);
+        super(props)
         this.state = {
             acao: props.acao,
             tipoImovel: ConstantesImoveis.Tipos.Apartamento,
@@ -21,59 +21,59 @@ class Form extends React.Component{
             condominio: "",
             armario: false,
             porteiro: false,
-        };
+        }
     }
 
     handleChange = (event) => {
-        const value = event.target.value;
+        const value = event.target.value
 
         switch(event.target.name){
             case ConstantesForm.Campos.quartos:
-                this.setState({ quartos: value});
-                break;
+                this.setState({ quartos: value})
+                break
             case ConstantesForm.Campos.suites:
-                this.setState({ suites: value});
-                break;
+                this.setState({ suites: value})
+                break
             case ConstantesForm.Campos.estar:
-                this.setState({ estar: value});
-                break;
+                this.setState({ estar: value})
+                break
             case ConstantesForm.Campos.jantar:
-                this.setState({ jantar: value});
-                break;
+                this.setState({ jantar: value})
+                break
             case ConstantesForm.Campos.area:
-                this.setState({ area: value});
-                break;
+                this.setState({ area: value})
+                break
             case ConstantesForm.Campos.vagas:
-                this.setState({ vagas: value});
-                break;
+                this.setState({ vagas: value})
+                break
             case ConstantesForm.Campos.andar:
-                this.setState({ andar: value});
-                break;
+                this.setState({ andar: value})
+                break
             case ConstantesForm.Campos.condominio:
-                this.setState({ condominio: value});
-                break;
+                this.setState({ condominio: value})
+                break
             case ConstantesForm.Campos.dropdownType:
-                this.setState({ tipoImovel: value});
-                break;
+                this.setState({ tipoImovel: value})
+                break
             case ConstantesForm.Campos.armario:
-                this.setState({ armario: event.target.checked});
-                break;
+                this.setState({ armario: event.target.checked})
+                break
             case ConstantesForm.Campos.porteiro:
-                this.setState({ porteiro: event.target.checked});
-                break;
+                this.setState({ porteiro: event.target.checked})
+                break
             default:
-                break;
+                break
         }
     }
     
     handleSubmit = (event) => {
-        const { acao, tipoImovel, quartos, suites, estar, jantar, area, vagas, andar, condominio } = this.state;
-        acao(tipoImovel, quartos, suites, estar, jantar, area, vagas, andar, condominio);
-        event.preventDefault();
+        const { acao, tipoImovel, quartos, suites, estar, jantar, area, vagas, andar, condominio } = this.state
+        acao(tipoImovel, quartos, suites, estar, jantar, area, vagas, andar, condominio)
+        event.preventDefault()
     }
 
     render(){
-        const { tipoImovel, quartos, suites, estar, jantar, area, vagas, andar, condominio, armario, porteiro } = this.state;
+        const { tipoImovel, quartos, suites, estar, jantar, area, vagas, andar, condominio, armario, porteiro } = this.state
      
         return(
             <div className={styles["container"]}>
@@ -138,4 +138,4 @@ class Form extends React.Component{
     }
 }
 
-export default Form;
+export default Form

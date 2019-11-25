@@ -1,3 +1,3 @@
-import ItemListagem from './ItemListagem';
+import ItemListagem from './ItemListagem'
 
-export default ItemListagem;
+export default ItemListagem

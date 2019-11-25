@@ -1,3 +1,3 @@
-import ItemAdicionar from './ItemAdicionar';
+import ItemAdicionar from './ItemAdicionar'
 
-export default ItemAdicionar;
+export default ItemAdicionar

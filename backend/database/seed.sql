@@ -15,7 +15,7 @@ VALUES
   (4, 500, 'Rua Logo Depois')
 ;
 
-INSERT INTO property_types (type)
+INSERT INTO property_types (name)
 VALUES
   ('Casa'),
   ('Apartamento')
