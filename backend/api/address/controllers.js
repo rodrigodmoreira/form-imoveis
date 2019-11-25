@@ -3,7 +3,7 @@ const { isNil } = require('utils')
 
 module.exports = {
   showAddress: async (req, res) => {
-    const address = await Address.findByPk(req.params.id)
+    const address = await Address.findOne(req.params.id)
     res.send(address)
   },
 
@@ -38,7 +38,7 @@ module.exports = {
   },
 
   showDistrict: async (req, res) => {
-    const district = await AddressDistrict.findByPk(req.params.id)
+    const district = await AddressDistrict.findOne(req.params.id)
     res.send(district)
   },
 
