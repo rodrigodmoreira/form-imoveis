@@ -10,6 +10,13 @@ const Address = pool => {
         INNER JOIN address_districts d ON a.district_id = d.id
   `).then(({ rows }) => rows)
 
+  model.findOneWithDistricts = (id) => pool.query(`
+  SELECT a.id, a.street, a.number, d.name district
+    FROM addresses a
+      INNER JOIN address_districts d ON a.district_id = d.id
+    WHERE a.id = $1::integer
+  `, [id]).then(({ rows }) => rows[0] || null)
+
   return model
 }
 

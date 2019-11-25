@@ -33,7 +33,7 @@ module.exports = (tableName, columns, pool) => ({
   },
 
   findAll: () => pool.query(`SELECT * FROM ${tableName}`).then(({ rows }) => rows),
-  findByPk: (id) => pool.query(`SELECT * FROM ${tableName} WHERE id = $1::integer`, [id]).then(({ rows }) => rows[0] || null)
+  findOne: (id) => pool.query(`SELECT * FROM ${tableName} WHERE id = $1::integer`, [id]).then(({ rows }) => rows[0] || null)
 })
 
 const internals = {

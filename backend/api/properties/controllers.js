@@ -1,24 +1,26 @@
-const { Property, PropertyExtras, Transaction } = require('database')
+const { Property, PropertyExtras, Address, Transaction } = require('database')
 const { isNil } = require('utils')
 
 module.exports = {
   showProperty: async (req, res) => {
-    const property = await Property.findByPk(req.params.id)
+    const property = await Property.findOne(req.params.id)
     if (isNil(property)) {
       res.send(null)
       return
     }
 
-    const propertyExtras = await PropertyExtras.findByProperty(property.id)
-    if (!isNil(propertyExtras)) delete propertyExtras.property_id
-
-    property.property_extras = propertyExtras
+    await internals.setRelations(property)
 
     res.send(property)
   },
 
   listProperties: async (req, res) => {
-    const list = await Property.findAllComplete()
+    const list = await Property.findAll()
+
+    for (const property of list) {
+      await internals.setRelations(property)
+    }
+
     res.send(list)
   },
 
@@ -63,6 +65,22 @@ module.exports = {
     } catch (error) {
       console.error(error)
       res.status(400).send({ message: 'Could not delete' })
+    }
+  }
+}
+
+const internals = {
+  setRelations: async (property) => {
+    const propertyExtras = await PropertyExtras.findByProperty(property.id)
+    if (!isNil(propertyExtras)) {
+      delete propertyExtras.property_id
+      property.property_extras = propertyExtras
+    }
+
+    const address = await Address.findOneWithDistricts(property.addresses_id)
+    if (!isNil(address)) {
+      delete property.addresses_id
+      property.address = address
     }
   }
 }
