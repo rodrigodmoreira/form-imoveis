@@ -61,7 +61,9 @@ class ItemListagem extends React.Component {
     }
 
     acao = () => {
-        console.log("teste2");
+        const { deleteFunction, id } = this.props;
+
+        deleteFunction(id);
     }
     
 }

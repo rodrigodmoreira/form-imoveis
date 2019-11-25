@@ -55,11 +55,13 @@ class App extends React.Component {
             numeroQuartos="4"
           /> 
           <ItemListagem 
+            id="11"
             tipo="apartamento" 
             rua="amazonas" 
             bairro="nova suissa" 
             metrosQuadrados="100" 
             numeroQuartos="4"
+            deleteFunction={(id) => this.onClickDelete(id)}
           /> 
           <ItemAdicionar acao={() => this.onClickPlus}/>
 
@@ -69,6 +71,10 @@ class App extends React.Component {
         </header>
       </div>
     );
+  }
+
+  onClickDelete = (id) => {
+    console.log("Apagando: " + id);
   }
 
   onClickPlus = () => {
