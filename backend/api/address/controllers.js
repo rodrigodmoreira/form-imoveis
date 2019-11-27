@@ -8,7 +8,15 @@ module.exports = {
   },
 
   listAddresses: async (req, res) => {
-    const addressList = await Address.findAllWithDistricts()
+    let addressList = []
+    if (!isNil(req.query.districts)) {
+      try {
+        const districts = JSON.parse(req.query.districts)
+        addressList = await Address.findAllFromDistricts(districts)
+      } catch (err) { res.status(400).send({ message: 'Wrong query format' }) }
+    } else {
+      addressList = await Address.findAllWithDistricts()
+    }
     res.send(addressList)
   },
 
