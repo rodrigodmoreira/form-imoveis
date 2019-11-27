@@ -11,6 +11,7 @@ class Form extends React.Component{
         this.state = {
             acao: props.acao,
             tipoImovel: ConstantesImoveis.Tipos.Apartamento,
+            district: "",
             quartos: "",
             suites: "",
             estar: "",
@@ -54,6 +55,9 @@ class Form extends React.Component{
                 break
             case ConstantesForm.Campos.dropdownType:
                 this.setState({ tipoImovel: value})
+                break
+            case ConstantesForm.Campos.dropdownDistrict:
+                this.setState({ district: value})
                 break
             case ConstantesForm.Campos.armario:
                 this.setState({ armario: event.target.checked})
