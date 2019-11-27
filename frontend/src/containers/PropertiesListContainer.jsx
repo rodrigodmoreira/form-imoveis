@@ -50,8 +50,10 @@ class App extends React.Component {
   }
 
   getAddress = async (districtId) => {
+    
+    const params = encodeURI(JSON.stringify([1]));
     debugger;
-    await Api.get(`/addresses/${districtId}`).then((res) => {
+    await Api.get(`/addresses?districts=${params}`).then((res) => {
       this.setState({
         address: res.data
       })

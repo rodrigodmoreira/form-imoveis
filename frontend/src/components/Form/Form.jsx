@@ -79,7 +79,7 @@ class Form extends React.Component{
 
     render(){
         const { tipoImovel, quartos, suites, estar, jantar, area, vagas, andar, condominio, armario, porteiro } = this.state;
-        const { districts } = this.props;
+        const { districts, address } = this.props;
         return(
             <div className={styles["container"]}>
                 <div className={styles["form"]}>
@@ -100,6 +100,14 @@ class Form extends React.Component{
                                 ))}
                             </select>
                         </label>
+                        {address && <label>
+                            <div className={styles["check"]}>Endereço do Imóvel:</div>
+                            <select id = "dropdownAddress" name={ConstantesForm.Campos.dropdownAddress} onChange={this.handleChange}>
+                                {address.map(address => (
+                                    <option key={address.id} value = {address.id}>{address.street}</option>
+                                ))}
+                            </select>
+                        </label>}
                         <label>
                             <br></br>
                             <span className={styles["check"]}>Numero de Quartos:</span>
