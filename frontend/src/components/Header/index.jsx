@@ -52,10 +52,10 @@ const Header = props => (
       <Logo height="90px" fill="grey"/>
       <p>ANTONY'S MOBI</p>
     </LogoWrapper>
-    <InputWrapper>
+    {/* <InputWrapper>
       <Input placeholder="Digite o endereço" />
       <Button><FaSearch color="grey"/></Button>
-    </InputWrapper>
+    </InputWrapper> */}
   </Wrapper>
 )
 
