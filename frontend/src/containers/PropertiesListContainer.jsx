@@ -40,36 +40,57 @@ class App extends React.Component {
   }
 
   onClickUpdate = (property) => {
-    console.log(this.props)
+    this.setState({
+      formAberto: true,
+      formEditProp: property,
+    });
   }
 
   onClickPlus = () => {
     this.setState({
-      formAberto: true
+      formAberto: true,
+      formEditProp: "",
     })
   }
 
-  onClickClose = (tipoImovel, quartos, suites, estar, jantar, area, vagas, andar, condominio) => {
-    Api.post('/properties', {
-      property: {
-        type_id: tipoImovel,
-        addresses_id: 3,            // HARDCODED
+  onClickClose = (tipoImovel, quartos, suites, estar, jantar, area, vagas, andar, condominio, address, armario, porteiro, aluguel, descricao, formEdit) => {
+    debugger;
+    if(formEdit){
+      Api.put(`/properties/${formEdit.id}`, {
+        // type_id: tipoImovel,
+        // addresses_id: address,         
         qt_rooms: quartos,
         qt_suites: suites,
         qt_lvrooms: estar,
         qt_vacancies: vagas,
         area: area,
-        builtin_cabinet: true,      // HARDCODED
-        description: ' ',           // HARDCODED
-        rent: 3000                  // HARDCODED
-      },
-      property_extras: {
-        qt_dnrooms: jantar,
-        floor: andar,
-        condo_value: condominio,
-        lobby_24h: true             // HARDCODED
-      }
-    }).then(() => this.props.history.go('/'))
+        builtin_cabinet: armario,    
+        description: descricao,
+        rent: aluguel
+      }).then(() => this.props.history.go('/'))
+    }
+    else{
+      Api.post('/properties', {
+        property: {
+          type_id: tipoImovel,
+          addresses_id: address,         
+          qt_rooms: quartos,
+          qt_suites: suites,
+          qt_lvrooms: estar,
+          qt_vacancies: vagas,
+          area: area,
+          builtin_cabinet: armario,    
+          description: descricao,
+          rent: aluguel
+        },
+        property_extras: {
+          qt_dnrooms: jantar,
+          floor: andar,
+          condo_value: condominio,
+          lobby_24h: porteiro       
+        }
+      }).then(() => this.props.history.go('/'))
+    }
 
 
     // MEIO Q INÚTIL JÀ Q A PÁGINA ATUALIZA ANTES
@@ -89,12 +110,26 @@ class App extends React.Component {
     })
   }
 
+  setDistrict = async (districtName) => {
+    debugger;
+    await Api.post("/addresses/districts", {name: districtName}).then((res) => {
+      this.props.history.go('/');
+    })
+  }
+
+  setAddress = async (district, rua, numero) => {
+    await Api.post("/addresses", {street: rua, number: numero, district_id: district}).then((res) => {
+      this.props.history.go('/');
+    })
+  }
+
   render () {
     const { 
       properties, 
       districts, 
       formAberto, 
       address,
+      formEditProp,
     } = this.state;
 
     return (
@@ -108,6 +143,9 @@ class App extends React.Component {
         onClickPlus={this.onClickPlus}
         onClickClose={this.onClickClose}
         getAddress={this.getAddress}
+        setDistrict={this.setDistrict}
+        setAddress={this.setAddress}
+        formEdit={formEditProp}
       />
     )
   }

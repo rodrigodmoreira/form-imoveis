@@ -12,6 +12,10 @@ class Form extends React.Component{
             acao: props.acao,
             tipoImovel: ConstantesImoveis.Tipos.Apartamento,
             district: "",
+            districtName: "",
+            insertDistrict: false,
+            address: "",
+            insertAddress: false,
             quartos: "",
             suites: "",
             estar: "",
@@ -22,6 +26,34 @@ class Form extends React.Component{
             condominio: "",
             armario: false,
             porteiro: false,
+            rua: "",
+            numero: "",
+            aluguel: "",
+            descricao: "",
+        }
+
+        if(props.formEdit){
+            debugger;
+            this.state = {
+                ...this.state,
+                tipoImovel: props.formEdit.type.type,
+                districtName: props.formEdit.address.district,
+                address: props.formEdit.address.street,
+                quartos: props.formEdit.qt_rooms,
+                suites: props.formEdit.qt_suites,
+                estar: props.formEdit.qt_lvrooms,
+                jantar: "",
+                area: props.formEdit.area,
+                vagas: props.formEdit.qt_vacancies,
+                andar: "",
+                condominio: "",
+                armario: props.formEdit.builtin_cabinet,
+                porteiro: false,
+                rua: "",
+                numero: "",
+                aluguel: props.formEdit.rent,
+                descricao: props.formEdit.description,
+            }
         }
     }
 
@@ -57,8 +89,33 @@ class Form extends React.Component{
                 this.setState({ tipoImovel: value})
                 break
             case ConstantesForm.Campos.dropdownDistrict:
-                this.setState({ district: value});
-                this.props.getAddress(value);
+                this.setState({ 
+                    district: value,
+                    insertDistrict: value==="100",
+                    insertAddress: true
+                });
+                value!=="0" && this.props.getAddress(value);
+                break
+            case ConstantesForm.Campos.dropdownAddress:
+                this.setState({ 
+                    address: value,
+                    insertAddress: value==="100"
+                });
+                break
+            case ConstantesForm.Campos.novaRua:
+                this.setState({ rua: value});
+                break
+            case ConstantesForm.Campos.novoNumero:
+                this.setState({ numero: value});
+                break
+            case ConstantesForm.Campos.novoBairro:
+                this.setState({ districtName: value});
+                break
+            case ConstantesForm.Campos.aluguel:
+                this.setState({ aluguel: value});
+                break
+            case ConstantesForm.Campos.descricao:
+                this.setState({ descricao: value});
                 break
             case ConstantesForm.Campos.armario:
                 this.setState({ armario: event.target.checked})
@@ -72,13 +129,26 @@ class Form extends React.Component{
     }
     
     handleSubmit = (event) => {
-        const { acao, tipoImovel, quartos, suites, estar, jantar, area, vagas, andar, condominio } = this.state
-        acao(tipoImovel, quartos, suites, estar, jantar, area, vagas, andar, condominio)
+        const { acao, tipoImovel, quartos, suites, estar, jantar, area, vagas, andar, condominio, address, armario, porteiro, aluguel, descricao } = this.state
+        acao(tipoImovel, quartos, suites, estar, jantar, area, vagas, andar, condominio, address, armario, porteiro, aluguel, descricao, this.props.formEdit)
         event.preventDefault()
     }
 
+    insertDistrict = (event) => {
+        const { districtName } = this.state;
+        const { setDistrict } = this.props;
+
+        setDistrict(districtName);
+    }
+
+    insertAddress = (event) => {
+        const { district, rua, numero } = this.state;
+        const { setAddress } = this.props;
+
+        setAddress(district, rua, numero);
+    }
     render(){
-        const { tipoImovel, quartos, suites, estar, jantar, area, vagas, andar, condominio, armario, porteiro } = this.state;
+        const { tipoImovel, quartos, suites, estar, jantar, area, vagas, andar, condominio, armario, porteiro, insertAddress, insertDistrict, rua, numero, districtName, aluguel, descricao } = this.state;
         const { districts, address } = this.props;
         return(
             <div className={styles["container"]}>
@@ -98,16 +168,36 @@ class Form extends React.Component{
                                 {districts.map(districts => (
                                     <option key={districts.id} value = {districts.id}>{districts.name}</option>
                                 ))}
+                                <option value = {100}>{"Adicionar Bairro"}</option>
                             </select>
                         </label>
+                        {insertDistrict && <label>
+                            <br></br>
+                            <span className={styles["check"]}>Nome do Bairro:</span>
+                            <input type="text" name={ConstantesForm.Campos.novoBairro} placeholder="Nome do Bairro" value={ districtName } onChange={this.handleChange} />
+                        </label>}
+                        {insertDistrict && <input className={styles["button"]} type="button" onClick={this.insertDistrict} value="Criar Bairro" />}
+
                         {address && <label>
                             <div className={styles["check"]}>Endereço do Imóvel:</div>
                             <select id = "dropdownAddress" name={ConstantesForm.Campos.dropdownAddress} onChange={this.handleChange}>
                                 {address.map(address => (
-                                    <option key={address.id} value = {address.id}>{address.street}</option>
+                                    <option key={address.id} value = {address.id}>{`${address.street} , ${address.number}`}</option>
                                 ))}
+                                <option value = {100}>{"Adicionar Endereço"}</option>
                             </select>
                         </label>}
+                        {insertAddress && <label>
+                            <br></br>
+                            <span className={styles["check"]}>Nome da Rua:</span>
+                            <input type="text" name={ConstantesForm.Campos.novaRua} placeholder="Nome da Rua" value={ rua } onChange={this.handleChange} />
+                        </label>}
+                        {insertAddress && <label>
+                            <span className={styles["check"]}>Número:</span>
+                            <input type="number" name={ConstantesForm.Campos.novoNumero} placeholder="Número" value={ numero } onChange={this.handleChange} />
+                        </label>}
+                        {insertAddress && <input className={styles["button"]} type="button" onClick={this.insertAddress} value="Criar Endereco" />}
+
                         <label>
                             <br></br>
                             <span className={styles["check"]}>Numero de Quartos:</span>
@@ -141,6 +231,14 @@ class Form extends React.Component{
                             <span className={styles["check"]}>Valor do Condomínio:</span>
                             <input type="number" name={ConstantesForm.Campos.condominio} placeholder="Condominio R$" value={ condominio } onChange={this.handleChange} />
                         </label>}
+                        <label>
+                            <span className={styles["check"]}>Valor do Aluguel:</span>
+                            <input type="number" name={ConstantesForm.Campos.aluguel} placeholder="Aluguel R$" value={ aluguel } onChange={this.handleChange} />
+                        </label>
+                        <label>
+                            <span className={styles["check"]}>Descrição:</span>
+                            <input type="text" name={ConstantesForm.Campos.descricao} placeholder="Descricao" value={ descricao } onChange={this.handleChange} />
+                        </label>
                         <label>
                             <div className={styles["checkBox"]}>
                                 <input type="checkbox" name={ConstantesForm.Campos.armario} value={ConstantesForm.Campos.armario} checked={armario} onChange={this.handleChange} /> Tem armário embutido

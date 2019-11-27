@@ -22,10 +22,13 @@ const PropertiesListView = props => (
 
         {props.formAberto &&
           <Form 
+            formEdit={props.formEdit}
             acao={props.onClickClose} 
             districts={props.districts}
             address={props.address}
             getAddress={props.getAddress}
+            setDistrict={(districtName) => props.setDistrict(districtName)}
+            setAddress={(district, rua, numero) => props.setAddress(district, rua, numero)}
           />
         }
     </div>

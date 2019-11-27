@@ -24,7 +24,7 @@ module.exports = (tableName, columns, pool) => ({
       WHERE id = $1::integer
       RETURNING *
     `
-
+    
     return pool.query(query, [id, ...objToArr(attrs)]).then(({ rows }) => rows[0] || null)
   },
 

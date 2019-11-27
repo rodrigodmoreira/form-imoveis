@@ -12,7 +12,12 @@ const Form = {
         andar: "andar",
         condominio: "condominio",
         armario: "armario",
-        porteiro: "porteiro"
+        porteiro: "porteiro",
+        novaRua: "novarua",
+        novoNumero: "novonumero",
+        novoBairro: "novobairro",
+        aluguel: "aluguel",
+        descricao: "descricao",
     }
 }
 
