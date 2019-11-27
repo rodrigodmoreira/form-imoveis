@@ -73,8 +73,8 @@ class Form extends React.Component{
     }
 
     render(){
-        const { tipoImovel, quartos, suites, estar, jantar, area, vagas, andar, condominio, armario, porteiro } = this.state
-     
+        const { tipoImovel, quartos, suites, estar, jantar, area, vagas, andar, condominio, armario, porteiro } = this.state;
+        const { districts } = this.props;
         return(
             <div className={styles["container"]}>
                 <div className={styles["form"]}>
@@ -85,6 +85,14 @@ class Form extends React.Component{
                             <select id = "dropdownType" name={ConstantesForm.Campos.dropdownType} onChange={this.handleChange}>
                                 <option value = {ConstantesImoveis.Tipos.Apartamento}>Apartamento</option>
                                 <option value = {ConstantesImoveis.Tipos.Casa}>Casa</option>
+                            </select>
+                        </label>
+                        <label>
+                            <div className={styles["check"]}>Bairro do Imóvel:</div>
+                            <select id = "dropdownDistrict" name={ConstantesForm.Campos.dropdownDistrict} onChange={this.handleChange}>
+                                {districts.map(districts => (
+                                    <option key={districts.id} value = {districts.id}>{districts.name}</option>
+                                ))}
                             </select>
                         </label>
                         <label>
@@ -130,7 +138,7 @@ class Form extends React.Component{
                                 <input type="checkbox" name={ConstantesForm.Campos.porteiro} value={ConstantesForm.Campos.porteiro} checked={porteiro} onChange={this.handleChange} /> Tem porteiro 24h
                             </div>
                         </label>}
-                        <input className={styles["button"]} type="submit" value="Ver Quartos" />
+                        <input className={styles["button"]} type="submit" value="Criar Quarto" />
                     </form>
                 </div>
             </div>

@@ -1,6 +1,7 @@
 const Form = {
     Campos: {
         dropdownType: "dropdowntype",
+        dropdownDistrict: "dropdowndistrict",
         quartos: "quartos",
         suites: "suites",
         estar: "estar",

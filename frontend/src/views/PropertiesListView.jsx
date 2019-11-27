@@ -8,9 +8,10 @@ import Header from '../components/Header'
 const PropertiesListView = props => (
   <React.Fragment>
     <Header />
-    <div class="List">
+    <div className="List">
         {props.properties.map(property => (
           <ItemListagem 
+            key={property.id}
             property={property}
             onDelete={props.onClickDelete}
             onUpdate={props.onClickUpdate}
@@ -20,7 +21,7 @@ const PropertiesListView = props => (
         <ItemAdicionar acao={props.onClickPlus}/>
 
         {props.formAberto &&
-          <Form acao={props.onClickClose} />
+          <Form acao={props.onClickClose} districts={props.districts}/>
         }
     </div>
   </React.Fragment>

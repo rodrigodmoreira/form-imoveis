@@ -10,13 +10,20 @@ class App extends React.Component {
 
     this.state = {
       formAberto: false,
-      properties: []
+      properties: [],
+      districts: [],
     }
 
     Api.get("/properties").then((res) => {
       this.setState({
         ...this.state,
         properties: res.data
+      })
+    });
+
+    Api.get("/addresses/districts").then((res) => {
+      this.setState({
+        districts: res.data
       })
     })
   }
@@ -42,10 +49,17 @@ class App extends React.Component {
   }
 
   render () {
+    const { 
+      properties, 
+      districts, 
+      formAberto, 
+    } = this.state;
+
     return (
       <PropertiesListView
-        properties={this.state.properties}
-        formAberto={this.state.formAberto}
+        properties={properties}
+        districts={districts}
+        formAberto={formAberto}
         onClickDelete={this.onClickDelete}
         onClickUpdate={this.onClickUpdate}
         onClickPlus={this.onClickPlus}
