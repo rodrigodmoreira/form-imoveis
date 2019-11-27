@@ -49,11 +49,11 @@ const Button = styled.button`
 const Header = props => (
   <Wrapper>
     <LogoWrapper>
-      <Logo height="90px"/>
+      <Logo height="90px" fill="grey"/>
       <p>ANTONY'S MOBI</p>
     </LogoWrapper>
     <InputWrapper>
-      <Input />
+      <Input placeholder="Digite o endereço" />
       <Button><FaSearch color="grey"/></Button>
     </InputWrapper>
   </Wrapper>

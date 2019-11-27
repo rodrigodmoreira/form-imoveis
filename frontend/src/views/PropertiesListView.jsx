@@ -11,12 +11,9 @@ const PropertiesListView = props => (
     <div class="List">
         {props.properties.map(property => (
           <ItemListagem 
-            tipo={property.type.name} 
-            rua={property.address.street}
-            bairro={property.address.district}
-            metrosQuadrados={property.area}
-            numeroQuartos={property.qt_rooms}
-            rent={property.rent}
+            property={property}
+            onDelete={props.onClickDelete}
+            onUpdate={props.onClickUpdate}
           />
         ))}
 

@@ -1,5 +1,6 @@
 import React from 'react'
 import Api from '../common/api'
+import { withRouter } from 'react-router'
 
 import PropertiesListView from '../views/PropertiesListView'
 
@@ -21,7 +22,11 @@ class App extends React.Component {
   }
 
   onClickDelete = (id) => {
-    console.log("Apagando: " + id)
+    Api.delete(`/properties/${id}`).then(() => this.props.history.go('/'))
+  }
+
+  onClickUpdate = (property) => {
+    console.log(this.props)
   }
 
   onClickPlus = () => {
@@ -42,6 +47,7 @@ class App extends React.Component {
         properties={this.state.properties}
         formAberto={this.state.formAberto}
         onClickDelete={this.onClickDelete}
+        onClickUpdate={this.onClickUpdate}
         onClickPlus={this.onClickPlus}
         onClickClose={this.onClickClose}
       />
@@ -49,4 +55,4 @@ class App extends React.Component {
   }
 }
 
-export default App
+export default withRouter(App)
