@@ -1,0 +1,12 @@
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  background: linear-gradient(#ffffff00, #dedede);
+  min-height: 100vh;
+}
+
+.MainContent {
+  width: 75%;
+}
