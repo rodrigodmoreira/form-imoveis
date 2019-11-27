@@ -44,6 +44,29 @@ class App extends React.Component {
   }
 
   onClickClose = (tipoImovel, quartos, suites, estar, jantar, area, vagas, andar, condominio) => {
+    Api.post('/properties', {
+      property: {
+        type_id: tipoImovel,
+        addresses_id: 3,            // HARDCODED
+        qt_rooms: quartos,
+        qt_suites: suites,
+        qt_lvrooms: estar,
+        qt_vacancies: vagas,
+        area: area,
+        builtin_cabinet: true,      // HARDCODED
+        description: ' ',           // HARDCODED
+        rent: 3000                  // HARDCODED
+      },
+      property_extras: {
+        qt_dnrooms: jantar,
+        floor: andar,
+        condo_value: condominio,
+        lobby_24h: true             // HARDCODED
+      }
+    }).then(() => this.props.history.go('/'))
+
+
+    // MEIO Q INÚTIL JÀ Q A PÁGINA ATUALIZA ANTES
     this.setState({
       formAberto: false
     })

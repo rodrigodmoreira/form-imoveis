@@ -1,6 +1,6 @@
 const Imoveis = {
     Tipos: {
-        Apartamento: '0',
+        Apartamento: '2',
         Casa: '1'
     }
 }
