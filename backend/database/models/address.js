@@ -10,19 +10,22 @@ const Address = pool => {
         INNER JOIN address_districts d ON a.district_id = d.id
   `).then(({ rows }) => rows)
 
-  model.findAllFromDistricts = (districts) => {
-    let similarQuery = `%(${districts[0]}`
-    for (let i = 1; i < districts.length; i++) {
-      similarQuery = `${similarQuery}|${districts[i]}`
+  model.findAllFromDistricts = (districts = []) => {
+    let inQuery = []
+    for (const dId of districts) {
+      const value = Number.parseInt(dId)
+      if (!Number.isInteger(value)) throw new Error('invalid_district_id')
+      inQuery.push(value)
     }
-    similarQuery = `${similarQuery})%`
+    inQuery = JSON.stringify(inQuery)
+    inQuery = inQuery.slice(1, inQuery.length - 1)
 
     return pool.query(`
       SELECT a.id, a.street, a.number, d.name district
         FROM addresses a
           INNER JOIN address_districts d ON a.district_id = d.id
-        WHERE d.name SIMILAR TO $1::varchar
-    `, [similarQuery]).then(({ rows }) => rows)
+        WHERE d.id IN (${inQuery}) 
+    `).then(({ rows }) => rows)
   }
 
   model.findOneWithDistricts = (id) => pool.query(`
