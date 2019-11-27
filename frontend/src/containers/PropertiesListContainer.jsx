@@ -12,6 +12,7 @@ class App extends React.Component {
       formAberto: false,
       properties: [],
       districts: [],
+      address: null,
     }
 
     Api.get("/properties").then((res) => {
@@ -48,22 +49,34 @@ class App extends React.Component {
     })
   }
 
+  getAddress = async (districtId) => {
+    debugger;
+    await Api.get(`/addresses/${districtId}`).then((res) => {
+      this.setState({
+        address: res.data
+      })
+    })
+  }
+
   render () {
     const { 
       properties, 
       districts, 
       formAberto, 
+      address,
     } = this.state;
 
     return (
       <PropertiesListView
         properties={properties}
         districts={districts}
+        address={address}
         formAberto={formAberto}
         onClickDelete={this.onClickDelete}
         onClickUpdate={this.onClickUpdate}
         onClickPlus={this.onClickPlus}
         onClickClose={this.onClickClose}
+        getAddress={this.getAddress}
       />
     )
   }

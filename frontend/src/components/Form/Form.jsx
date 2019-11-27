@@ -57,7 +57,8 @@ class Form extends React.Component{
                 this.setState({ tipoImovel: value})
                 break
             case ConstantesForm.Campos.dropdownDistrict:
-                this.setState({ district: value})
+                this.setState({ district: value});
+                this.props.getAddress(value);
                 break
             case ConstantesForm.Campos.armario:
                 this.setState({ armario: event.target.checked})

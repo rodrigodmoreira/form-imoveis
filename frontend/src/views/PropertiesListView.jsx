@@ -21,7 +21,11 @@ const PropertiesListView = props => (
         <ItemAdicionar acao={props.onClickPlus}/>
 
         {props.formAberto &&
-          <Form acao={props.onClickClose} districts={props.districts}/>
+          <Form 
+            acao={props.onClickClose} 
+            districts={props.districts}
+            getAddress={props.getAddress}
+          />
         }
     </div>
   </React.Fragment>
