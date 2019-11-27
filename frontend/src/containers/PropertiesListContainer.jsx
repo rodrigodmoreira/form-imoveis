@@ -25,7 +25,13 @@ class App extends React.Component {
     Api.get("/addresses/districts").then((res) => {
       this.setState({
         districts: res.data
-      })
+      });
+
+      this.state.districts && this.state.districts[0] && Api.get(`/addresses?districts=${encodeURI(JSON.stringify([this.state.districts[0].id]))}`).then((res) => {
+        this.setState({
+          address: res.data
+        });
+      });
     })
   }
 
@@ -74,8 +80,8 @@ class App extends React.Component {
 
   getAddress = async (districtId) => {
     
-    const params = encodeURI(JSON.stringify([1]));
-    debugger;
+    const params = encodeURI(JSON.stringify([districtId]));
+ 
     await Api.get(`/addresses?districts=${params}`).then((res) => {
       this.setState({
         address: res.data

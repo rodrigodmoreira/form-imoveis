@@ -24,6 +24,7 @@ const PropertiesListView = props => (
           <Form 
             acao={props.onClickClose} 
             districts={props.districts}
+            address={props.address}
             getAddress={props.getAddress}
           />
         }
